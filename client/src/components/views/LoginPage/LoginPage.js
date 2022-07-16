@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { loginUser } from "../../../_actions/user_actions";
+import React from 'react';
+import { Button, Checkbox, Form, Icon, Input, Typography } from 'antd';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Form, Icon, Input, Button, Checkbox, Typography } from 'antd';
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as Yup from 'yup';
+import logo from '../../../assets/logo/logo.png';
+import { loginUser } from "../../../_actions/user_actions";
 
 const { Title } = Typography;
 
@@ -81,7 +83,8 @@ function LoginPage(props) {
         return (
           <div className="app">
 
-            <Title level={2}>Log In</Title>
+            <img src={logo} alt="LOGO" style={{height: '10vh', padding: '1em'}} />
+            <Title level={3} style={{textAlign: 'center'}}>Log in</Title>
             <form onSubmit={handleSubmit} style={{ width: '350px' }}>
 
               <Form.Item required>
