@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import FeelLayout from "./Layout/FeelLayout";
-import NewFeelForm from "./DrawerForm/NewFeelForm";
+import React from "react";
 import { Drawer } from "antd";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { createFeel } from "../../../_actions/feel_actions";
+import NewFeelForm from "./DrawerForm/NewFeelForm";
+import FeelLayout from "./Layout/FeelLayout";
+
 const Feel = () => {
   const dispatch = useDispatch();
+
   const [OpenDrawer, setOpenDrawer] = useState(false);
 
   const showDrawer = () => {
@@ -16,7 +20,7 @@ const Feel = () => {
   };
 
   const HandleNewFeelReport = (report) => {
-    dispatch({ type: "ADD_FEEL_REPORT", payload: report });
+    dispatch(createFeel(report));
     onClose();
   };
 

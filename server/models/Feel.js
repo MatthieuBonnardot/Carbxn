@@ -2,12 +2,14 @@ const mongoose = require("mongoose");
 
 const feelSchema = mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
   },
   date: {
     type: String,
     required: true,
+  },
+  case: {
+    type: String,
   },
   personal: {
     type: Number,

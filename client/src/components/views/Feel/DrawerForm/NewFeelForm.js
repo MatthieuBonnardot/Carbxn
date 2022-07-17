@@ -3,18 +3,22 @@ import { useForm } from "../../../../hooks/useForm";
 import { Button, Checkbox, Form, Input, DatePicker } from "antd";
 import IconSlider from "./Components/IconSlider";
 import moment from "moment";
+import { useSelector } from "react-redux";
 const { TextArea } = Input;
 
-const DEFAULT_REPORT_STATE = {
-  date: moment().format("l"),
-  personal_feel: 0,
-  work_feel: 0,
-  sleep_feel: 0,
-  workload_feel: 0,
-  comment: "",
-};
-
 const NewFeelForm = (props) => {
+  const { _id } = useSelector((state) => state.user.userData);
+
+  const DEFAULT_REPORT_STATE = {
+    user: _id,
+    date: moment().format("l"),
+    personal: 0,
+    work: 0,
+    sleep: 0,
+    workload: 0,
+    comment: "",
+  };
+  
   const {
     formData,
     handleInputChange,
@@ -60,7 +64,7 @@ const NewFeelForm = (props) => {
           <IconSlider
             min={0}
             max={5}
-            name="personal_feel"
+            name="personal"
             handler={handleSliderInput}
           ></IconSlider>
         </Form.Item>
@@ -72,31 +76,31 @@ const NewFeelForm = (props) => {
           <IconSlider
             min={0}
             max={5}
-            name="work_feel"
+            name="work"
             handler={handleSliderInput}
           ></IconSlider>
         </Form.Item>
         <Form.Item
           label="How did you wake up today"
-          name="sleep_feel"
+          name="sleep"
           rules={[{ required: true, message: "Please input your sleep!" }]}
         >
           <IconSlider
             min={0}
             max={5}
-            name="sleep_feel"
+            name="sleep"
             handler={handleSliderInput}
           ></IconSlider>
         </Form.Item>
         <Form.Item
           label="How is todays workload"
-          name="workload_feel"
+          name="workload"
           rules={[{ required: true, message: "Please input your workload!" }]}
         >
           <IconSlider
             min={0}
             max={5}
-            name="workload_feel"
+            name="workload"
             handler={handleSliderInput}
           ></IconSlider>
         </Form.Item>

@@ -3,13 +3,13 @@ const router = express.Router();
 const { Feel } = require("../models/Feel");
 
 const { auth } = require("../middleware/auth");
+const logger = require("../config/logger");
 
 //=================================
 //             Feel
 //=================================
-
 router.get("/:id", auth, (req, res) => {
-  Feel.find({ _id: req.params.id })
+  Feel.find()
     .then((feel) => {
       res.status(200).json(feel);
     })
@@ -18,6 +18,16 @@ router.get("/:id", auth, (req, res) => {
         error: err,
       });
     });
+});
+
+router.get("/report", auth, (req, res) => {
+  console.log('hello')
+  try {
+    const report = buildUserFeelReport(req.user._id);
+    res.status(200).json(report);
+  } catch (error) {
+    res.status(400).send(err);
+  }
 });
 
 router.get("/list", auth, (req, res) => {
@@ -33,8 +43,7 @@ router.get("/list", auth, (req, res) => {
 
 router.post("/create", auth, (req, res) => {
   const feel = new Feel(req.body);
-  feel.user = req.user._id;
-  feel.save((err, doc) => {
+  feel.save((err, feel) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({
       success: true,

@@ -2,11 +2,12 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
-
+const logger = require("./config/logger");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const config = require("./config/key");
+require("dotenv").config();
 
 // const mongoose = require("mongoose");
 // mongoose
@@ -22,10 +23,23 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .then(() => console.log("📶 MongoDB Connected..."))
+  .catch((err) => console.log("MONGODB ERR", err));
 
 app.use(cors());
+
+
+app.use((req, res, next) => {
+  logger.info(`[${req.method}] [${req.url}] [${req.hostname}]`);
+
+  res.on("finish", () => {
+    logger.info(
+      `[${req.method}] [${req.url}] [${req.hostname}] ==> [${res.statusCode}]`
+    );
+  });
+
+  next();
+});
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
@@ -54,8 +68,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 3232;
+const port = process.env.NODE_PORT || 5005;
 
 app.listen(port, () => {
-  console.log(`Server Listening on ${port}`);
+  console.log(`🔥Server Listening on ${port}`);
 });

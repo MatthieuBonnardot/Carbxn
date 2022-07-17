@@ -1,83 +1,27 @@
 import React from "react";
-import { Card, Table, Rate } from "antd";
-import moment from "moment";
+import { Card, Rate, Table, Skeleton } from "antd";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const FeelList = (props) => {
-  const dataSource = [
-    {
-      key: "1",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 3,
-      work: 4,
-      sleep: 2,
-      workload: 4,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-    {
-      key: "2",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 3,
-      work: 4,
-      sleep: 2,
-      workload: 1,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-    {
-      key: "3",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 3,
-      work: 4,
-      sleep: 5,
-      workload: 1,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-    {
-      key: "4",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 3,
-      work: 4,
-      sleep: 4,
-      workload: 2,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-    {
-      key: "5",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 5,
-      work: 4,
-      sleep: 3,
-      workload: 1,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-    {
-      key: "6",
-      date: moment().format("l"),
-      case: "Pepsico",
-      personal: 4,
-      work: 5,
-      sleep: 2,
-      workload: 3,
-      comment:
-        "Today, was quite nice mainly focused on development, react query is a pain tho",
-    },
-  ];
+import { feelList } from "../../../_actions/feel_actions";
+
+const FeelList = () => {
+  const dispatch = useDispatch()
+  const { list } = useSelector((state) => state.feel);
+
+  const fetchListOfFeels = useCallback(() => {
+    dispatch(feelList());
+  }, []);
+
+  useEffect(() => {
+    fetchListOfFeels();
+  }, [fetchListOfFeels]);
 
   const columns = [
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
-
     },
     {
       title: "Case",
@@ -119,6 +63,8 @@ const FeelList = (props) => {
     },
   ];
 
+  console.log(list);
+
   return (
     <>
       <div
@@ -129,7 +75,11 @@ const FeelList = (props) => {
         }}
       >
         <Card title="Reports" bordered={false} style={{ width: "100%" }}>
-          <Table dataSource={dataSource} columns={columns} />;
+          {list && list.length > 0 ? (
+            <Table dataSource={list} columns={columns} />
+          ) : (
+            <Skeleton active />
+          )}
         </Card>
       </div>
     </>

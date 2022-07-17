@@ -26,6 +26,7 @@ const breadcrumbNameMap = {
   "/work": "Work",
 };
 
+
 function App() {
   const location = useLocation();
   const pathSnippets = location.pathname.split("/").filter((i) => i);
