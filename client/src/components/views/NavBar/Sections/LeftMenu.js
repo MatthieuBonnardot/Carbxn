@@ -10,6 +10,9 @@ function LeftMenu(props) {
       <Menu.Item key="Feel">
         <a href="/feel">Feel</a>
       </Menu.Item>
+      <Menu.Item key="Finance">
+        <a href="/work">Finance</a>
+      </Menu.Item>
       <Menu.Item key="Personal">
         <a href="/personal">Personal</a>
       </Menu.Item>

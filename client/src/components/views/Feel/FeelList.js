@@ -1,21 +1,10 @@
 import React from "react";
-import { Card, Rate, Table, Skeleton } from "antd";
-import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { feelList } from "../../../_actions/feel_actions";
+import { Card, Rate, Skeleton, Table } from "antd";
+import { useQuery } from "react-query";
+import { fetchFeels } from "../../../api/feel";
 
 const FeelList = () => {
-  const dispatch = useDispatch()
-  const { list } = useSelector((state) => state.feel);
-
-  const fetchListOfFeels = useCallback(() => {
-    dispatch(feelList());
-  }, []);
-
-  useEffect(() => {
-    fetchListOfFeels();
-  }, [fetchListOfFeels]);
+  const { data: list } = useQuery(["feels"], () => fetchFeels());
 
   const columns = [
     {
@@ -63,8 +52,6 @@ const FeelList = () => {
     },
   ];
 
-  console.log(list);
-
   return (
     <>
       <div
@@ -75,8 +62,8 @@ const FeelList = () => {
         }}
       >
         <Card title="Reports" bordered={false} style={{ width: "100%" }}>
-          {list && list.length > 0 ? (
-            <Table dataSource={list} columns={columns} />
+          {list ? (
+            <Table dataSource={list.feels} columns={columns} />
           ) : (
             <Skeleton active />
           )}

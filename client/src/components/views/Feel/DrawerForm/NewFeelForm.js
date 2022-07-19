@@ -7,18 +7,16 @@ import { useSelector } from "react-redux";
 const { TextArea } = Input;
 
 const NewFeelForm = (props) => {
-  const { _id } = useSelector((state) => state.user.userData);
-
   const DEFAULT_REPORT_STATE = {
-    user: _id,
-    date: moment().format("l"),
+    user: props.user._id,
+    date: moment().format("L"),
     personal: 0,
     work: 0,
     sleep: 0,
     workload: 0,
     comment: "",
   };
-  
+
   const {
     formData,
     handleInputChange,

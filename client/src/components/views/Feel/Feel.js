@@ -1,13 +1,18 @@
 import React from "react";
 import { Drawer } from "antd";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createFeel } from "../../../_actions/feel_actions";
+import { createFeel } from "../../../api/feel";
+import { useMutation, useQueryClient } from "react-query";
 import NewFeelForm from "./DrawerForm/NewFeelForm";
 import FeelLayout from "./Layout/FeelLayout";
 
-const Feel = () => {
-  const dispatch = useDispatch();
+const Feel = (props) => {
+  const queryClient = useQueryClient();
+  const { mutateAsync: createNewFeel } = useMutation(createFeel, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["report"]);
+    },
+  });
 
   const [OpenDrawer, setOpenDrawer] = useState(false);
 
@@ -19,8 +24,9 @@ const Feel = () => {
     setOpenDrawer(false);
   };
 
-  const HandleNewFeelReport = (report) => {
-    dispatch(createFeel(report));
+  const HandleNewFeelReport = async (report) => {
+    await createNewFeel({ dataToSubmit: report });
+    props.history.push("/feel")
     onClose();
   };
 
@@ -35,7 +41,10 @@ const Feel = () => {
         visible={OpenDrawer}
         width={500}
       >
-        <NewFeelForm onSubmit={HandleNewFeelReport}></NewFeelForm>
+        <NewFeelForm
+          user={props.user}
+          onSubmit={HandleNewFeelReport}
+        ></NewFeelForm>
       </Drawer>
     </>
   );
