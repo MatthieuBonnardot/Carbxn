@@ -1,53 +1,39 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@ant-design/icons": "4.0.0-rc.0",
-    "@antv/g2": "^4.2.5",
-    "@antv/g2plot": "^2.4.20",
-    "antd": "^3.24.1",
-    "axios": "^0.19.2",
-    "core-js": "^3.6.4",
-    "formik": "^1.5.8",
-    "moment": "^2.24.0",
-    "pino": "^8.1.0",
-    "react": "^16.8.6",
-    "react-app-polyfill": "^1.0.6",
-    "react-dom": "^16.8.6",
-    "react-icons": "^3.7.0",
-    "react-query": "^3.39.2",
-    "react-redux": "^7.1.0-rc.1",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.4.1",
-    "redux": "^4.0.0",
-    "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.3.0",
-    "yup": "^0.27.0"
+  "name": "react-boiler-plate",
+  "version": "1.0.0",
+  "description": "react boiler plate",
+  "main": "index.js",
+  "engine": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
   },
   "scripts": {
-    "start": "PORT=3006 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js",
+    "frontend": "npm run start --prefix client",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "John ahn",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.20",
+    "pino": "^8.1.0",
+    "pino-pretty": "^8.1.0",
+    "react-redux": "^5.0.7",
+    "saslprep": "^1.0.3",
+    "supports-color": "^7.1.0"
   },
   "devDependencies": {
-    "@ant-design/compatible": "^1.1.0",
-    "http-proxy-middleware": "^1.0.3"
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1"
   }
 }
