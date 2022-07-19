@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.0.0-rc.0",
+    "@antv/g2": "^4.2.5",
     "@antv/g2plot": "^2.4.20",
     "antd": "^3.24.1",
     "axios": "^0.19.2",
@@ -15,6 +16,7 @@
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
+    "react-query": "^3.39.2",
     "react-redux": "^7.1.0-rc.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.4.1",
